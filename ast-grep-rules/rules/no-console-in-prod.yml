@@ -1,0 +1,21 @@
+id: no-console-in-prod
+language: TypeScript
+severity: warning
+message: "Avoid console.* in production code (except console.error inside catch)"
+note: |
+  Use a real logger. console.error is allowed inside catch blocks.
+rule:
+  any:
+    - pattern: console.error($$$ARGS)
+      not:
+        inside:
+          kind: catch_clause
+          stopBy: end
+    - pattern: console.$METHOD($$$ARGS)
+constraints:
+  METHOD:
+    regex: 'log|debug|warn|info|trace'
+files:
+  - '**/*.ts'
+  - '**/*.tsx'
+  - '**/*.py'

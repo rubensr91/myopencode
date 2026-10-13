@@ -1,0 +1,14 @@
+id: find-import-usage
+language: TypeScript
+rule:
+  kind: identifier
+  pattern: $MOD
+  inside:
+    stopBy: end
+    kind: program
+    has:
+      kind: import_statement
+      has:
+        stopBy: end
+        kind: import_specifier
+        pattern: $MOD

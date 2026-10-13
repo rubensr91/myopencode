@@ -1,0 +1,10 @@
+id: no-nested-anchors
+language: Tsx
+severity: error
+message: "Nested <a> elements produce invalid HTML and a11y warnings"
+rule:
+  pattern: <a $$$>$$$A</a>
+  has:
+    pattern: <a $$$>$$$</a>
+    stopBy: end
+files: ['**/*.html', '**/*.tsx']

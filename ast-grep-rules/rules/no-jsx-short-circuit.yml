@@ -1,0 +1,14 @@
+id: no-jsx-short-circuit
+language: Tsx
+severity: error
+message: "Avoid `&&` short-circuit in templates — it renders 0 as visible text"
+note: "Use `@if` (Angular) or `condition ? a : b` instead."
+rule:
+  kind: jsx_expression
+  has:
+    pattern: $A && $B
+  not:
+    inside:
+      kind: jsx_attribute
+fix: "{$A ? $B : null}"
+files: ['**/*.tsx', '**/*.html']

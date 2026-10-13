@@ -1,0 +1,16 @@
+id: no-empty-catch
+language: TypeScript
+severity: error
+message: "Empty catch swallows errors silently"
+rule:
+  all:
+    - pattern: try { $$$T } catch ($E) { $$$H }
+    - has:
+        kind: catch_clause
+        has:
+          kind: statement_block
+          not:
+            has:
+              kind: statement
+              stopBy: end
+files: ['**/*.ts', '**/*.tsx', '**/*.py']

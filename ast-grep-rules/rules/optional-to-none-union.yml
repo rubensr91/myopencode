@@ -1,0 +1,10 @@
+id: optional-to-none-union
+language: Python
+severity: hint
+message: "PEP 604: prefer `T | None` over `Optional[T]` on Python 3.10+"
+rule:
+  pattern:
+    context: 'a: Optional[$T]'
+    selector: generic_type
+fix: $T | None
+files: ['**/*.py']
