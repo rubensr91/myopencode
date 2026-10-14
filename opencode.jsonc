@@ -1,4 +1,73 @@
 {
-  "plugin": ["oh-my-openagent@latest"],
-  "$schema": "https://opencode.ai/config.json"
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "plan",
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "compaction": { "auto": true, "prune": true },
+  "plugin": [
+    "opencode-websearch-cited@1.2.0",
+    "@tarquinen/opencode-dcp@latest",
+    "opencode-scheduler",
+    "oh-my-openagent@latest",
+    "./plugins/caveman/plugin.js"
+  ],
+  "provider": {
+    "openrouter": {
+      "models": {
+        "deepseek/deepseek-v4.1-flash": {},
+        "deepseek/deepseek-v4-flash-0731:free": {},
+        "~z-ai/glm-flash-latest": {},
+        "anthropic/claude-haiku-5.5": {},
+        "z-ai/glm-5.3-flash": {},
+        "z-ai/glm-4.5-air:free": {},
+        "qwen/qwen3-coder:free": {},
+        "openrouter/free": {}
+      }
+    }
+  },
+  "tools": { "figma_*": false },
+  "agent": {
+    "plan": { "model": "openrouter/anthropic/claude-haiku-5.5", "steps": 10 },
+    "build": {
+      "model": "openrouter/deepseek/deepseek-v4.1-flash",
+      "steps": 25,
+      "tools": { "figma_*": true }
+    }
+  },
+  "mcp": {
+    "websearch": {
+      "type": "local",
+      "command": ["uvx", "duckduckgo-mcp-server"],
+      "enabled": true
+    },
+    "figma": {
+      "type": "local",
+      "command": ["npx", "-y", "figma-developer-mcp", "--stdio"],
+      "enabled": true,
+      "timeout": 30000,
+      "environment": {
+        "FIGMA_API_KEY": "{env:FIGMA_API_KEY}"
+      }
+    },
+    "figma-official": {
+      "type": "remote",
+      "url": "https://mcp.figma.com/mcp",
+      "enabled": false,
+      "oauth": {}
+    },
+    "composio": {
+      "type": "remote",
+      "url": "https://connect.composio.dev/mcp",
+      "enabled": true
+    },
+    "rea": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "rea-agents@6.4.0",
+        "mcp"
+      ],
+      "enabled": true
+    }
+  }
 }

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/omo.schema.json",
+  // Modelos baratos de OpenRouter (con crédito).
+  // Roles según oh-my-openagent:
+  //   sisyphus    = ultraworker
+  //   atlas       = plan executor (ejecutor de planes)
+  //   prometheus  = plan builder (planear)
+  "agents": {
+    "sisyphus": { "model": "openrouter/deepseek/deepseek-v4.1-flash" },
+    "atlas": { "model": "openrouter/~z-ai/glm-flash-latest" },
+    "prometheus": { "model": "openrouter/anthropic/claude-haiku-5.5" }
+  },
+  // Sin crédito en OpenRouter: arrancar con OMO_PROFILE=free para usar los :free.
+  "profiles": {
+    "free": {
+      "agents": {
+        "sisyphus": { "model": "openrouter/deepseek/deepseek-v4-flash-0731:free" },
+        "atlas": { "model": "openrouter/z-ai/glm-4.5-air:free" },
+        "prometheus": { "model": "openrouter/qwen/qwen3-coder:free" }
+      }
+    }
+  }
+}
